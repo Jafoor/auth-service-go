@@ -1,0 +1,12 @@
+.idea/
+.vs
+.vscode
+config.json
+config.local.json
+config.dev.json
+main
+*.exe
+tmp
+bin
+.env
+auth-service
