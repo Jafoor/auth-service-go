@@ -27,6 +27,26 @@ func loadConfig() error {
 		Mode:        Mode(viper.GetString("MODE")),
 		ServiceName: viper.GetString("SERVICE_NAME"),
 		HttpPort:    viper.GetInt("HTTP_PORT"),
+		DB: DB{
+			Read: DBConfig{
+				Host:                viper.GetString("READ_DB_HOST"),
+				Port:                viper.GetInt("READ_DB_PORT"),
+				Name:                viper.GetString("READ_DB_NAME"),
+				User:                viper.GetString("READ_DB_USER"),
+				Pass:                viper.GetString("READ_DB_PASS"),
+				MaxIdleTimeInMinute: viper.GetInt("READ_DB_MAX_IDLE_TIME_IN_MINUTE"),
+				EnableSSLMode:       viper.GetBool("READ_DB_ENABLE_SSL_MODE"),
+			},
+			Write: DBConfig{
+				Host:                viper.GetString("WRITE_DB_HOST"),
+				Port:                viper.GetInt("WRITE_DB_PORT"),
+				Name:                viper.GetString("WRITE_DB_NAME"),
+				User:                viper.GetString("WRITE_DB_USER"),
+				Pass:                viper.GetString("WRITE_DB_PASS"),
+				MaxIdleTimeInMinute: viper.GetInt("WRITE_DB_MAX_IDLE_TIME_IN_MINUTE"),
+				EnableSSLMode:       viper.GetBool("WRITE_DB_ENABLE_SSL_MODE"),
+			},
+		},
 		Redis: Redis{
 			Read: []RedisConfig{
 				{

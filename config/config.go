@@ -13,6 +13,21 @@ const (
 	ReleaseMode Mode = "release"
 )
 
+type DBConfig struct {
+	Host                string `json:"host"                    validate:"required"`
+	Port                int    `json:"port"                    validate:"required"`
+	Name                string `json:"name"                    validate:"required"`
+	User                string `json:"user"                    validate:"required"`
+	Pass                string `json:"pass"                    validate:"required"`
+	MaxIdleTimeInMinute int    `json:"max_idle_time_in_minute" validate:"required"`
+	EnableSSLMode       bool   `json:"enable_ssl_mode"`
+}
+
+type DB struct {
+	Read  DBConfig `json:"read"  validate:"required"`
+	Write DBConfig `json:"write" validate:"required"`
+}
+
 type RedisConfig struct {
 	Host     string `json:"host" validate:"required"`
 	Port     string `json:"port" validate:"required"`
@@ -28,6 +43,7 @@ type Config struct {
 	Mode        Mode
 	ServiceName string
 	HttpPort    int
+	DB          DB
 	Redis       Redis
 }
 

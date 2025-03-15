@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"auth-service/app/external/cache"
+	"auth-service/app/external/repo"
 	"auth-service/config"
 	"auth-service/logger"
 	"log/slog"
@@ -20,6 +21,15 @@ func serve(cmd *cobra.Command, args []string) error {
 	slog.Info("starting server")
 	conf := config.GetConfig()
 	logger.SetupLogger(conf.ServiceName)
+
+	db, err := repo.ConnectDB(conf)
+	if err != nil {
+		slog.Error("Unable to connect", logger.Extra(map[string]any{
+			"error": err.Error(),
+		}))
+		return err
+	}
+	defer repo.CloseDB(db)
 
 	redisClient := cache.InitRedisClient(conf.Redis)
 	defer redisClient.Close()
