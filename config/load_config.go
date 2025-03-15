@@ -27,6 +27,20 @@ func loadConfig() error {
 		Mode:        Mode(viper.GetString("MODE")),
 		ServiceName: viper.GetString("SERVICE_NAME"),
 		HttpPort:    viper.GetInt("HTTP_PORT"),
+		Redis: Redis{
+			Read: []RedisConfig{
+				{
+					Host:     viper.GetString("REDIS_READ_HOST"),
+					Port:     viper.GetString("REDIS_READ_PORT"),
+					Password: viper.GetString("REDIS_READ_PASSWORD"),
+				},
+			},
+			Write: RedisConfig{
+				Host:     viper.GetString("REDIS_WRITE_HOST"),
+				Port:     viper.GetString("REDIS_WRITE_PORT"),
+				Password: viper.GetString("REDIS_WRITE_PASSWORD"),
+			},
+		},
 	}
 
 	v := validator.New()

@@ -13,10 +13,22 @@ const (
 	ReleaseMode Mode = "release"
 )
 
+type RedisConfig struct {
+	Host     string `json:"host" validate:"required"`
+	Port     string `json:"port" validate:"required"`
+	Password string `json:"password" `
+}
+
+type Redis struct {
+	Read  []RedisConfig `json:"read" validate:"required"`
+	Write RedisConfig   `json:"write" validate:"required"`
+}
+
 type Config struct {
 	Mode        Mode
 	ServiceName string
 	HttpPort    int
+	Redis       Redis
 }
 
 var config *Config
