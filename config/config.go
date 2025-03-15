@@ -40,11 +40,12 @@ type Redis struct {
 }
 
 type Config struct {
-	Mode        Mode
-	ServiceName string
-	HttpPort    int
-	DB          DB
-	Redis       Redis
+	Mode                Mode   `json:"mode"`
+	ServiceName         string `json:"service_name"`
+	HttpPort            int    `json:"http_port" `
+	DB                  DB     `json:"db"  validate:"required"`
+	MigrationSourcePath string `json:"migration_source_path" validate:"required"`
+	Redis               Redis  `json:"redis"                 validate:"required"`
 }
 
 var config *Config

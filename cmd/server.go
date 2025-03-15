@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"sync"
 
+	migrate "github.com/rubenv/sql-migrate"
 	"github.com/spf13/cobra"
 )
 
@@ -30,6 +31,8 @@ func serve(cmd *cobra.Command, args []string) error {
 		return err
 	}
 	defer repo.CloseDB(db)
+
+	repo.RunMigrations(*db.WriteDB, conf.MigrationSourcePath, migrate.Up, false)
 
 	redisClient := cache.InitRedisClient(conf.Redis)
 	defer redisClient.Close()

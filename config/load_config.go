@@ -47,6 +47,7 @@ func loadConfig() error {
 				EnableSSLMode:       viper.GetBool("WRITE_DB_ENABLE_SSL_MODE"),
 			},
 		},
+		MigrationSourcePath: viper.GetString("MIGRATION_SOURCE_PATH"),
 		Redis: Redis{
 			Read: []RedisConfig{
 				{
