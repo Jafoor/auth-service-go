@@ -34,6 +34,7 @@ func (r *recorder) Flush() {
 func Logger(handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		path := r.URL.Path
+		slog.Info("request started", logger.Path(path))
 		rec := &recorder{
 			ResponseWriter: w,
 		}

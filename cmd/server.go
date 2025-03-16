@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"auth-service/app/domain/user"
 	"auth-service/app/external/cache"
 	"auth-service/app/external/repo"
 	"auth-service/config"
@@ -37,12 +38,16 @@ func serve(cmd *cobra.Command, args []string) error {
 	redisClient := cache.InitRedisClient(conf.Redis)
 	defer redisClient.Close()
 
+	userRepo := repo.NewUserRepo(db)
+
+	userService := user.NewService(userRepo)
+
 	var wg sync.WaitGroup
 	wg.Add(1)
 
 	go func() {
 		defer wg.Done()
-		if err := startRestServer(conf); err != nil {
+		if err := startRestServer(conf, userService); err != nil {
 			slog.Error("REST server failed", slog.String("error", err.Error()))
 		}
 	}()

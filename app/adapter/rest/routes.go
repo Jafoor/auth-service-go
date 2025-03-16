@@ -6,10 +6,17 @@ import (
 )
 
 func initRoutes(mux *http.ServeMux, manager *middlewares.Manager, s *Server) {
+
 	mux.Handle(
 		"GET /hello",
 		manager.With(
 			http.HandlerFunc(s.Handlers.Hello),
 		),
+	)
+
+	mux.Handle(
+		"POST /api/v1/signup",
+		manager.With(
+			http.HandlerFunc(s.Handlers.SignUpUser)),
 	)
 }
