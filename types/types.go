@@ -16,7 +16,7 @@ type SignUpUserPayload struct {
 	ConfirmPassword string `json:"confirmPassword"`
 }
 
-type SignUpUser struct {
+type User struct {
 	Id        int       `json:"_id" db:"id"`
 	FirstName string    `json:"firstName" db:"first_name"`
 	LastName  string    `json:"lastName" db:"last_name"`
@@ -65,7 +65,7 @@ func (u SignUpUserPayload) Validate() error {
 	return nil
 }
 
-func (u SignUpUser) Validate() error {
+func (u User) Validate() error {
 	// Validate email format
 	if !isValidEmail(u.Email) {
 		return errors.New("invalid email format")
@@ -107,6 +107,22 @@ func (u SignInUserPayload) Validate() error {
 	}
 
 	return nil
+}
+
+type ProfileResponse struct {
+	Id        int    `json:"id"`
+	FirstName string `json:"firstName"`
+	LastName  string `json:"lastName"`
+	Email     string `json:"email"`
+}
+
+func (p *User) ConvertToProfileResponse() ProfileResponse {
+	return ProfileResponse{
+		Id:        p.Id,
+		FirstName: p.FirstName,
+		LastName:  p.LastName,
+		Email:     p.Email,
+	}
 }
 
 func isValidEmail(email string) bool {

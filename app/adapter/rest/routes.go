@@ -25,4 +25,12 @@ func initRoutes(mux *http.ServeMux, manager *middlewares.Manager, s *Server) {
 		manager.With(
 			http.HandlerFunc(s.Handlers.SignInUser)),
 	)
+
+	mux.Handle(
+		"GET /api/v1/profile",
+		manager.With(
+			http.HandlerFunc(s.Handlers.GetUserDetails),
+			middlewares.Authenticate,
+		),
+	)
 }

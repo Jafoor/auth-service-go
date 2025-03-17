@@ -34,7 +34,7 @@ func (svc *service) LoginUser(ctx context.Context, user types.SignInUserPayload)
 	return token, nil
 }
 
-func (s *service) generateToken(user *types.SignUpUser) (string, error) {
+func (s *service) generateToken(user *types.User) (string, error) {
 	claims := jwt.MapClaims{
 		"id":        user.Id,
 		"email":     user.Email,

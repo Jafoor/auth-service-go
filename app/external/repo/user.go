@@ -46,17 +46,33 @@ func (u userRepo) Create(ctx context.Context, user types.SignUpUserPayload) erro
 	return nil
 }
 
-func (u userRepo) GetUserByEmail(ctx context.Context, email string) (*types.SignUpUser, error) {
+func (u userRepo) GetUserByEmail(ctx context.Context, email string) (*types.User, error) {
 	query, args, err := u.psql.Select("id", "first_name", "last_name", "email", "password", "created_at", "updated_at").From(u.tableName).Where(sq.Eq{"email": email}).ToSql()
 
 	if err != nil {
 		return nil, fmt.Errorf("failed to get user by email: %v", err)
 	}
 
-	var user types.SignUpUser
+	var user types.User
 
 	if err := u.readDB.GetContext(ctx, &user, query, args...); err != nil {
 		return nil, fmt.Errorf("failed to get user by email: %v", err)
+	}
+
+	return &user, nil
+}
+
+func (u userRepo) GetUserById(ctx context.Context, id int) (*types.User, error) {
+	query, args, err := u.psql.Select("id", "first_name", "last_name", "email", "created_at", "updated_at").From(u.tableName).Where(sq.Eq{"id": id}).ToSql()
+
+	if err != nil {
+		return nil, fmt.Errorf("failed to get user by id: %v", err)
+	}
+
+	var user types.User
+
+	if err := u.readDB.GetContext(ctx, &user, query, args...); err != nil {
+		return nil, fmt.Errorf("failed to get user by id: %v", err)
 	}
 
 	return &user, nil
