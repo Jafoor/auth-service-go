@@ -27,6 +27,12 @@ func initRoutes(mux *http.ServeMux, manager *middlewares.Manager, s *Server) {
 	)
 
 	mux.Handle(
+		"POST /api/v1/refresh",
+		manager.With(
+			http.HandlerFunc(s.Handlers.RefreshToken)),
+	)
+
+	mux.Handle(
 		"GET /api/v1/profile",
 		manager.With(
 			http.HandlerFunc(s.Handlers.GetUserDetails),

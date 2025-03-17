@@ -3,15 +3,12 @@ package handlers
 import (
 	"auth-service/app/adapter/rest/utils"
 	"auth-service/types"
-	"fmt"
-	"log/slog"
+
 	"net/http"
 )
 
 func (h *Handlers) SignUpUser(w http.ResponseWriter, r *http.Request) {
 	var payload types.SignUpUserPayload
-
-	slog.Info("sign up user..............................")
 
 	// decode json request body
 	err := utils.DecodeJSON(r, &payload)
@@ -26,7 +23,6 @@ func (h *Handlers) SignUpUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Printf("payload: %v\n", payload)
 	err = h.userService.Create(r.Context(), payload)
 
 	if err != nil {
