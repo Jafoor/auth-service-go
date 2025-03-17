@@ -22,7 +22,7 @@ func (h *Handlers) SignInUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := h.userService.LoginUser(r.Context(), payload)
+	accessToken, refreshToken, err := h.userService.LoginUser(r.Context(), payload)
 
 	if err != nil {
 		utils.SendError(w, http.StatusInternalServerError, "failed to login user", err.Error())
@@ -30,6 +30,7 @@ func (h *Handlers) SignInUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	utils.SendJSON(w, http.StatusOK, map[string]any{
-		"token": token,
+		"accessToken":  accessToken,
+		"refreshToken": refreshToken,
 	})
 }

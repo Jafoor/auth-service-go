@@ -63,8 +63,9 @@ func loadConfig() error {
 			},
 		},
 		JWT: Jwt{
-			Secret: viper.GetString("JWT_SECRET"),
-			ExpIn:  viper.GetInt("JWT_EXP_IN"),
+			Secret:       viper.GetString("JWT_SECRET"),
+			AccessExpIn:  viper.GetInt("JWT_ACCESS_EXP_IN"),
+			RefreshExpIn: viper.GetInt("JWT_REFRESH_EXP_IN"),
 		},
 	}
 

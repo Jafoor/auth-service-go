@@ -40,8 +40,9 @@ type Redis struct {
 }
 
 type Jwt struct {
-	Secret string `json:"secret" validate:"required"`
-	ExpIn  int    `json:"exp_in" validate:"required"`
+	Secret       string `json:"secret" validate:"required"`
+	AccessExpIn  int    `json:"access_exp_in" validate:"required"`
+	RefreshExpIn int    `json:"refresh_exp_in" validate:"required"`
 }
 
 type Config struct {
