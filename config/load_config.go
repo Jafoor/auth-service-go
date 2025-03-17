@@ -62,6 +62,10 @@ func loadConfig() error {
 				Password: viper.GetString("REDIS_WRITE_PASSWORD"),
 			},
 		},
+		JWT: Jwt{
+			Secret: viper.GetString("JWT_SECRET"),
+			ExpIn:  viper.GetInt("JWT_EXP_IN"),
+		},
 	}
 
 	v := validator.New()

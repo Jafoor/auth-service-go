@@ -39,6 +39,11 @@ type Redis struct {
 	Write RedisConfig   `json:"write" validate:"required"`
 }
 
+type Jwt struct {
+	Secret string `json:"secret" validate:"required"`
+	ExpIn  int    `json:"exp_in" validate:"required"`
+}
+
 type Config struct {
 	Mode                Mode   `json:"mode"`
 	ServiceName         string `json:"service_name"`
@@ -46,6 +51,7 @@ type Config struct {
 	DB                  DB     `json:"db"  validate:"required"`
 	MigrationSourcePath string `json:"migration_source_path" validate:"required"`
 	Redis               Redis  `json:"redis"                 validate:"required"`
+	JWT                 Jwt    `json:"jwt"                   validate:"required"`
 }
 
 var config *Config

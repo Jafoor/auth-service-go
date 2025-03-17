@@ -11,7 +11,7 @@ import (
 )
 
 type UserRepo interface {
-	user.Service
+	user.UserRepo
 }
 
 type userRepo struct {

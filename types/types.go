@@ -84,7 +84,29 @@ func (u SignUpUser) Validate() error {
 	}
 
 	return nil
+}
 
+type SignInUserPayload struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+func (u SignInUserPayload) Validate() error {
+	// Trim whitespace from fields
+	u.Email = strings.TrimSpace(u.Email)
+	u.Password = strings.TrimSpace(u.Password)
+
+	// Check required fields
+	if u.Email == "" || u.Password == "" {
+		return errors.New("email and password are required")
+	}
+
+	// Validate email format
+	if !isValidEmail(u.Email) {
+		return errors.New("invalid email format")
+	}
+
+	return nil
 }
 
 func isValidEmail(email string) bool {

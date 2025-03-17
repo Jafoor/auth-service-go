@@ -19,4 +19,10 @@ func initRoutes(mux *http.ServeMux, manager *middlewares.Manager, s *Server) {
 		manager.With(
 			http.HandlerFunc(s.Handlers.SignUpUser)),
 	)
+
+	mux.Handle(
+		"POST /api/v1/signin",
+		manager.With(
+			http.HandlerFunc(s.Handlers.SignInUser)),
+	)
 }

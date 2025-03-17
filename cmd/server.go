@@ -40,7 +40,7 @@ func serve(cmd *cobra.Command, args []string) error {
 
 	userRepo := repo.NewUserRepo(db)
 
-	userService := user.NewService(userRepo)
+	userService := user.NewService(userRepo, conf.JWT)
 
 	var wg sync.WaitGroup
 	wg.Add(1)

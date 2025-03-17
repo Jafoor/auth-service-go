@@ -7,12 +7,12 @@ import (
 
 type Handlers struct {
 	conf        *config.Config
-	userService user.UserRepo
+	userService user.Service
 }
 
 func NewHandler(
 	conf *config.Config,
-	userService user.UserRepo,
+	userService user.Service,
 ) *Handlers {
 	return &Handlers{
 		conf:        conf,
