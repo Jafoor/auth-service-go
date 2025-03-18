@@ -46,6 +46,9 @@ fmt:
 	@gofumpt -w . && golines -w .
 	@echo "All Go files formatted!"
 
+# test all
+test:
+	go test -v ./...
 
 postgres:
 	sudo docker run --name postgres17 -p 5432:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -d postgres:17-alpine
